@@ -49,6 +49,15 @@ LambdaLite is schemaless for flexibility. Rather than defining tables themselves
 
 This will define getter functions that can be used like `(:/ticket-id row)` as well as validation functions like `(valid-title-p title)`.
 
+## Example Session
+    (require :lambdalite)
+    (use-package :lambdalite)
+    (load-db)
+    (insert :cars '(:/car-id 1 :/make "Honda" :/color "blue")
+                  '(:/car-id 2 :/make "Ford" :/color "red"))
+    (select :cars (where (equal :/color "red")))
+      => ((:/CAR-ID 2 :/MAKE "Ford" :/COLOR "red"))
+
 ## Transactions
 LambdaLite provides the `with-tx` macro to wrap transactions, which are executed serially across threads. For example, the following code is safe under a multi-threaded web server like Hunchentoot:
 
