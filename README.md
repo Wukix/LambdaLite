@@ -49,6 +49,18 @@ LambdaLite is schemaless for flexibility. Rather than defining tables themselves
 
 This will define getter functions that can be used like `(:/ticket-id row)` as well as validation functions like `(valid-title-p title)`.
 
+## Transactions
+LambdaLite provides the `with-tx` macro to wrap transactions, which are executed serially across threads. For example, the following code is safe under a multi-threaded web server like Hunchentoot:
+
+    ;; ... create a new ticket
+    (with-tx 
+      (let* ((user-id (logged-in-user-id))
+             (ticket-id (1+ (length (select :tickets)))))
+        (unless user-id 
+          (error "Not logged in"))
+        (insert :tickets (list :/ticket-id ticket-id :/created-by user-id :/ticket-status "open"))))
+Any data commands that are used outside of a with-tx transaction will automatically be treated each individually as separate transactions.
+
 ## Caveats
 "Do things that don't scale" &mdash; Paul Graham
 
