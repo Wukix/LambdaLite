@@ -1,9 +1,9 @@
 LambdaLite
 ==========
 
-A functional relational database in about 250 lines of Common Lisp
+A functional, relational database in about 250 lines of Common Lisp
 
-SQL. NoSQL. ORMs. Key-value stores. There are a variety of approaches available for dealing with data. LambdaLite might be called "functional relational", for lack of a better term. The "relational" part is straightfoward: data is organized into tables. The "functional" part comes from a break with traditional SQL-style query languages: Lisp function closures are used to express queries over in-memory, in-process Lisp data.
+SQL. NoSQL. ORMs. Key-value stores. There are a variety of approaches available for dealing with data. LambdaLite might be called functional and relational, for lack of better terms. The "relational" part is straightfoward: data is organized into tables. The "functional" part comes from a break with traditional SQL-style query languages: Lisp function closures are used to express queries over in-memory, in-process Lisp data.
 
 ## Lisp Plug
 People often ask "why Lisp?" It's hard to sum up all the benefits of Lisp in a few words. However, what LambdaLite does would be impossible in most languages. LambdaLite's `where` clauses are macros that seek out '/'-prefixed keywords and replace them with row attribute references. The resulting expression becomes a function closure that is compiled by most Lisp implementations into native code. Is that cool or what?
