@@ -59,7 +59,7 @@ This will define getter functions that can be used like `(:/ticket-id row)` as w
     (select :cars (where (equal :/color "red")))
       => ((:/CAR-ID 2 :/MAKE "Ford" :/COLOR "red"))
     (defmacro str-member (&rest strings)
-      `(λ (x) (member x '(,@strings) :test #'string=)))
+      `(lambda (x) (member x '(,@strings) :test #'string=)))
     (defattributes
       :/car-id #'integerp 
       :/make #'stringp 
