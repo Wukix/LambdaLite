@@ -99,9 +99,9 @@
       (let ((tmp-name (cdr (assoc name *tx-modified-list*)))) 
         (when tmp-name
           (setf name tmp-name))))
-    (let ((rows (gethash name *db*)))
+    (let ((rows (copy-list (gethash name *db*))))
       (if where-predicate 
-	  (remove-if-not where-predicate rows)
+	  (delete-if-not where-predicate rows)
 	  rows))))
 
 (defun select1 (name &optional where-predicate)
