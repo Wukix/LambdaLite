@@ -34,7 +34,7 @@ LambdaLite is schemaless for flexibility. Rather than defining tables themselves
       `(lambda (x) (member x '(,@strings) :test #'string=)))
 
     (defattributes
-      :/ticket-id
+      :/ticket-id #'integerp
       :/title (lambda (x) (<= 1 (length x) 200))
       :/ticket-type (str-member "defect" "enhancement" "question")
       :/mocl-version (str-member "14.08" "14.05" "14.02" "13.08" "13.06" "n/a")
