@@ -52,11 +52,26 @@ This will define getter functions that can be used like `(:/ticket-id row)` as w
 ## Example Session
     (require :lambdalite)
     (use-package :lambdalite)
-    (load-db)
+    (load-db "~/db/")
     (insert :cars '(:/car-id 1 :/make "Honda" :/color "blue")
                   '(:/car-id 2 :/make "Ford" :/color "red"))
+      => 2
     (select :cars (where (equal :/color "red")))
       => ((:/CAR-ID 2 :/MAKE "Ford" :/COLOR "red"))
+    (defmacro str-member (&rest strings)
+      `(λ (x) (member x '(,@strings) :test #'string=)))
+    (defattributes
+      :/car-id #'integerp 
+      :/make #'stringp 
+      :/color (str-member "red" "green" "blue"))
+    (valid-color-p "asdf")
+      => nil
+    (dolist (row (select :cars)) 
+      (format t "Make: ~A, Color: ~A~%" (:/make row) (:/color row)))
+      >> Make: Honda, Color: blue
+         Make: Ford, Color: red
+    (mapcar #':/color (select :cars))
+      => ("blue" "red")
 
 ## Transactions
 LambdaLite provides the `with-tx` macro to wrap transactions, which are executed serially across threads. For example, the following code is safe under a multi-threaded web server like Hunchentoot:
