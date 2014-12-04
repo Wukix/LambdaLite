@@ -72,6 +72,14 @@ This will define getter functions that can be used like `(:/ticket-id row)` as w
          Make: Ford, Color: red
     (mapcar #':/color (select :cars))
       => ("blue" "red")
+    (insert :cars '(:/car-id 3 :/make "Toyota" :/color "green") 
+                  '(:/car-id 4 :/make "Audi" :/color "red"))
+      => 2
+    (sort (select :cars) #'string< :key #':/make)
+      => ((:/CAR-ID 4 :/MAKE "Audi" :/COLOR "red")
+          (:/CAR-ID 2 :/MAKE "Ford" :/COLOR "red")
+          (:/CAR-ID 1 :/MAKE "Honda" :/COLOR "blue")
+          (:/CAR-ID 3 :/MAKE "Toyota" :/COLOR "green"))
 
 ## Transactions
 LambdaLite provides the `with-tx` macro to wrap transactions, which are executed serially across threads. For example, the following code is safe under a multi-threaded web server like Hunchentoot:
