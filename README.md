@@ -52,7 +52,7 @@ This will define getter functions that can be used like `(:/ticket-id row)` as w
 ## Example Session
     (require :lambdalite)
     (use-package :lambdalite)
-    (load-db "~/db/")
+    (load-db :path "~/db/")
     (insert :cars '(:/car-id 1 :/make "Honda" :/color "blue")
                   '(:/car-id 2 :/make "Ford" :/color "red"))
       => 2
