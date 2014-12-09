@@ -89,8 +89,8 @@ LambdaLite provides the `with-tx` macro to wrap transactions, which are executed
 
     ;; ... create a new ticket
     (with-tx 
-      (let* ((user-id (logged-in-user-id))
-             (ticket-id (1+ (length (select :tickets)))))
+      (let ((user-id (logged-in-user-id))
+            (ticket-id (1+ (length (select :tickets)))))
         (unless user-id 
           (error "Not logged in"))
         (insert :tickets (list :/ticket-id ticket-id :/created-by user-id :/ticket-status "open"))))
